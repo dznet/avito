@@ -28,9 +28,12 @@ ActiveRecord::Schema.define(version: 20151104214048) do
     t.integer  "status"
     t.string   "source_link"
     t.datetime "posted_ad"
-    t.integer  "premium"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "premium_type"
+    t.integer  "discount"
+    t.integer  "reason"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "categories", force: :cascade do |t|

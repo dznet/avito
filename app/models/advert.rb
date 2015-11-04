@@ -20,7 +20,8 @@
 #
 
 class Advert < ActiveRecord::Base
-  # Помечаем поля :status и :premium как enum (используется гем simple_enum)
+  # Помечаем поля :status, :premium_type и :reason как enum
+  # Используется гем simple_enum
   as_enum :status,
           new: 1,        # => Новое
           competitor: 2, # => Конкурент
@@ -30,7 +31,14 @@ class Advert < ActiveRecord::Base
           in_base: 6,    # => В базе
           published: 7   # => Опубликовано
 
-  as_enum :premium, premium: 1, vip: 2, allocated: 3
+  as_enum :premium_type, premium: 1, vip: 2, allocated: 3
+
+  as_enum :reason,
+          low_cost: 1,
+          high_cost: 2,
+          one_buyer: 3,
+          many_buyers: 4,
+          good_design: 5
 
   # Имеет одного рекламодателя
   belongs_to :user
