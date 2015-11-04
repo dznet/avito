@@ -1,2 +1,2 @@
-# avito_parser
+# avito
 Парсер данных с Avito
