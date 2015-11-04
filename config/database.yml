@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+
+development:
+  <<: *default
+  database: avito_dev
+
+test:
+  <<: *default
+  database: avito_test
+
+
+production:
+  <<: *default
+  database: avito_production
+  username: username
