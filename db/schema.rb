@@ -11,9 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20151104212736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "adverts", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "ad_id"
+    t.integer  "category_id"
+    t.integer  "price"
+    t.string   "owner_name"
+    t.string   "phone"
+    t.string   "metro"
+    t.text     "desc"
+    t.integer  "status"
+    t.string   "source_link"
+    t.datetime "posted_ad"
+    t.integer  "premium"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "firstname"
+    t.string   "secondname"
+    t.string   "email"
+    t.string   "password"
+    t.integer  "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
