@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: adverts
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  ad_id       :integer
+#  category_id :integer
+#  price       :integer
+#  owner_name  :string
+#  phone       :string
+#  metro       :string
+#  desc        :text
+#  status      :integer
+#  source_link :string
+#  posted_ad   :datetime
+#  premium     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Advert < ActiveRecord::Base
   # Помечаем поля :status и :premium как enum (используется гем simple_enum)
   as_enum :status,
@@ -13,4 +34,7 @@ class Advert < ActiveRecord::Base
 
   # Имеет одного рекламодателя
   belongs_to :user
+
+  # Находится в одной категории
+  belongs_to :category
 end
