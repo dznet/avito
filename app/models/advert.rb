@@ -2,21 +2,24 @@
 #
 # Table name: adverts
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  ad_id       :integer
-#  category_id :integer
-#  price       :integer
-#  owner_name  :string
-#  phone       :string
-#  metro       :string
-#  desc        :text
-#  status      :integer
-#  source_link :string
-#  posted_ad   :datetime
-#  premium     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id           :integer          not null, primary key
+#  title        :string
+#  ad_id        :integer
+#  category_id  :integer
+#  price        :integer
+#  owner_name   :string
+#  phone        :string
+#  metro        :string
+#  desc         :text
+#  status       :integer
+#  source_link  :string
+#  posted_ad    :datetime
+#  premium_type :integer
+#  discount     :integer
+#  reason       :integer
+#  user_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Advert < ActiveRecord::Base
