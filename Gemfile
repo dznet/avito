@@ -12,11 +12,11 @@ gem 'unicorn'
 
 # gem 'devise'
 # gem 'devise-i18n'
-gem 'cancancan'
+# gem 'cancancan'
 
-gem 'httparty'
+# gem 'httparty'
 
-gem 'oauth2'
+# gem 'oauth2'
 
 # gem 'omniauth'
 # gem 'omniauth-facebook'
@@ -34,10 +34,10 @@ gem 'oauth2'
 # ORM
 # gem 'seed_dump'
 # gem 'ar-octopus'
-gem 'redis-rails'
+# gem 'redis-rails'
 gem 'pg'
-gem 'friendly_id', '~> 5.1.0'
-gem 'mysql2', '~> 0.3.17'
+# gem 'friendly_id', '~> 5.1.0'
+# gem 'mysql2', '~> 0.3.17'
 
 # Forms
 gem 'simple_form'
@@ -45,7 +45,7 @@ gem 'simple_form'
 # gem 'tinymce-rails-langs'
 
 # Markdown
-gem 'redcarpet'
+# gem 'redcarpet'
 
 # Assets
 gem 'jquery-rails'
@@ -60,16 +60,16 @@ gem 'jbuilder'
 
 # Other gems
 gem 'slim'
-gem 'sidekiq'
-gem 'whenever'
-gem 'binding_of_caller'
+# gem 'sidekiq'
+# gem 'whenever'
+# gem 'binding_of_caller'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 gem 'flutie'
-gem 'rails_config'
-gem 'dotenv-rails'
-gem 'russian'
-gem 'babosa'
+# gem 'rails_config'
+# gem 'dotenv-rails'
+# gem 'russian'
+# gem 'babosa'
 # gem 'github_api'
 # gem 'random_username'
 # gem 'humans'
@@ -80,19 +80,20 @@ gem 'babosa'
 # gem 'acts_as_commentable'
 # gem 'faker'
 # gem "breadcrumbs_on_rails"
+gem 'simple_enum'
 
 # Images
 # gem 'paperclip'
-gem 'carrierwave'
-gem 'mini_magick'
-gem 'rmagick'
+# gem 'carrierwave'
+# gem 'mini_magick'
+# gem 'rmagick'
 
 # Deploy
-gem 'capistrano', '~> 3.3.5'
-gem 'capistrano-rails', '~> 1.1.2'
+# gem 'capistrano', '~> 3.3.5'
+# gem 'capistrano-rails', '~> 1.1.2'
+# gem 'capistrano-rvm'
+# gem 'capistrano3-unicorn'
 # gem 'capistrano-rbenv'
-gem 'capistrano-rvm'
-gem 'capistrano3-unicorn'
 
 group :test do
   gem 'rspec'
