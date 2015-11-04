@@ -37,4 +37,7 @@ class Advert < ActiveRecord::Base
 
   # Находится в одной категории
   belongs_to :category
+
+  # Имеет множество изображений
+  has_many :images
 end
