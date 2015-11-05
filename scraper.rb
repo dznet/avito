@@ -18,8 +18,7 @@ ActiveRecord::Base.establish_connection(dbconfig['development'])
 
 # Получаем страницу с объявлениями (и пагинацией)
 agent = Mechanize.new
-
-page = agent.get('https://www.avito.ru/sankt-peterburg/gotoviy_biznes')
+page  = agent.get('https://www.avito.ru/sankt-peterburg/gotoviy_biznes')
 
 # Находим ссылки на конкретные объявления
 advert_links = page.links_with(href: /gotoviy_biznes/)
@@ -39,7 +38,6 @@ end
 # ========== Сохранение данных в базе =============
 
 advert_links.each_with_index do |link, index|
-
   # Поскольку ссылки повторяются в изображениях к объявлению, то берём каждую вторую
   next index unless index.even?
 
