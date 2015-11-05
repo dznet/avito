@@ -28,10 +28,29 @@ advert_links = page.links_with(href: /gotoviy_biznes/)
 # поскольку это ссылки на группы объявлений, сортировку и галерею
 advert_links.slice!(0..13)
 
+# Первые пять страниц, для тестирования
+advert_links = advert_links[0..4]
 
-# Удаляем дубли ссылок, с текстом "Подробнее"
+# Удаляем лишние ссылки (в даном случае это пагинация)
 advert_links = advert_links.reject do |link|
   link.node.attr('href').include?('?p=')
 end
 
-fail advert_links.inspect
+# ========== Сохранение данных в базе =============
+
+advert_links.each_with_index do |link, index|
+
+  # Поскольку ссылки повторяются в изображениях к объявлению, то берём каждую вторую
+  next index unless index.even?
+
+  # Переходим на страницу конкретного объявления
+  advert_page = link.click
+
+  # Собираем данные со страницы
+  title = advert_page.search('h1').text
+
+  # Сохраняем данные в базу
+  Advert.create do |advert|
+    advert.title = title
+  end
+end
