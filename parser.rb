@@ -21,4 +21,17 @@ agent = Mechanize.new
 
 page = agent.get('https://www.avito.ru/sankt-peterburg/gotoviy_biznes')
 
-fail page.inspect
+# Находим ссылки на конкретные объявления
+advert_links = page.links_with(href: /gotoviy_biznes/)
+
+# Удаляем первые 14 ссылок,
+# поскольку это ссылки на группы объявлений, сортировку и галерею
+advert_links.slice!(0..13)
+
+
+# Удаляем дубли ссылок, с текстом "Подробнее"
+advert_links = advert_links.reject do |link|
+  link.node.attr('href').include?('?p=')
+end
+
+fail advert_links.inspect
