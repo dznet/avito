@@ -81,6 +81,7 @@ gem 'flutie'
 # gem 'faker'
 # gem "breadcrumbs_on_rails"
 gem 'simple_enum'
+gem 'mechanize'
 
 # Images
 # gem 'paperclip'
@@ -109,7 +110,7 @@ group :test do
 end
 
 group :development do
-# gem 'mysql2', '~> 0.3.18'
+  # gem 'mysql2', '~> 0.3.18'
   gem 'better_errors'
   gem 'meta_request'
   gem 'annotate'
@@ -120,7 +121,6 @@ group :production do
   gem 'rails_12factor'
   gem 'google-analytics-rails'
 end
-
 
 # group :doc do
 #   gem 'sdoc', require: false
