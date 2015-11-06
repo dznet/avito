@@ -46,9 +46,11 @@ advert_links.each_with_index do |link, index|
 
   # Собираем данные со страницы
   title = advert_page.search('h1').text
+  ad_id = advert_page.uri.to_s.split('_').last
 
   # Сохраняем данные в базу
   Advert.create do |advert|
     advert.title = title
+    advert.ad_id = ad_id
   end
 end
