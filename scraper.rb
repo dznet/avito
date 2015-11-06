@@ -4,8 +4,10 @@ require 'yaml'
 require 'mechanize'
 
 # Классы для работы с объектами базы данных
-Advert = Class.new(ActiveRecord::Base)
-User   = Class.new(ActiveRecord::Base)
+Advert   = Class.new(ActiveRecord::Base)
+User     = Class.new(ActiveRecord::Base)
+Category = Class.new(ActiveRecord::Base)
+Image    = Class.new(ActiveRecord::Base)
 
 # Загружаем файл настройки соединения с базой данных
 dbconfig = YAML.load_file(File.join(__dir__, 'database.yml'))
@@ -45,12 +47,17 @@ advert_links.each_with_index do |link, index|
   advert_page = link.click
 
   # Собираем данные со страницы
-  title = advert_page.search('h1').text
-  ad_id = advert_page.uri.to_s.split('_').last
+  title    = advert_page.search('h1').text
+  ad_id    = advert_page.uri.to_s.split('_').last
+  item_category = advert_page.search('.item-params').text.split(': ').last.chop
 
   # Сохраняем данные в базу
   Advert.create do |advert|
-    advert.title = title
-    advert.ad_id = ad_id
+    # Сравниваем категорию объявления. Если в базе нет, то создаём
+    category = Category.find_or_create_by(title: item_category)
+
+    advert.title       = title
+    advert.ad_id       = ad_id
+    advert.category_id = category.id
   end
 end
