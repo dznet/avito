@@ -47,9 +47,10 @@ advert_links.each_with_index do |link, index|
   advert_page = link.click
 
   # Собираем данные со страницы
-  title    = advert_page.search('h1').text
-  ad_id    = advert_page.uri.to_s.split('_').last
-  item_category = advert_page.search('.item-params').text.split(': ').last.chop
+  title         = advert_page.search('h1').text
+  ad_id         = advert_page.uri.to_s.split('_').last
+  item_category = advert_page.search('.item-params').text.split(': ').last.strip!
+  price         = advert_page.search('.p_i_price').text.scan(/\d/).join
 
   # Сохраняем данные в базу
   Advert.create do |advert|
@@ -59,5 +60,6 @@ advert_links.each_with_index do |link, index|
     advert.title       = title
     advert.ad_id       = ad_id
     advert.category_id = category.id
+    advert.price       = price
   end
 end
