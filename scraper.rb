@@ -26,7 +26,10 @@ end
 page = agent.get('https://m.avito.ru/sankt-peterburg/gotoviy_biznes')
 
 # Сами объявления
-adverts = Avito.advert_links(page)
+# loop do
+  adverts = Avito.advert_links(page)
+  fail adverts.inspect
+# end
 
 # Первые 7 объявлений, для тестирования
 adverts = adverts[0..7]
