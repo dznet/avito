@@ -15,7 +15,10 @@ class Avito < ActiveRecord::Base
       link.node.attr('href').include?('?p=')
     end
 
-    links
+    page =
+
+    links + advert_links(page)
+
   end
 
   def self.get_info(adverts)
