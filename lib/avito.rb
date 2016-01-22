@@ -1,3 +1,8 @@
+require 'rubygems'
+require 'active_record'
+require 'yaml'
+require 'mechanize'
+
 class Avito < ActiveRecord::Base
   def self.advert_links(page)
     # Находим ссылки на конкретные объявления
@@ -14,19 +19,29 @@ class Avito < ActiveRecord::Base
   end
 
   def self.get_info(adverts)
-    adverts.each_with_index do |link, _index|
+    agent = Mechanize.new do |agent|
+      agent.user_agent = USER_AGENTS[:ff_android]
+    end
 
+    adverts.each_with_index do |link, _index|
       # Убираем повторные ссылки с изображений к объявлениям
       next if _index.odd?
 
       # Переходим на страницу конкретного объявления
       advert_page = link.click
 
+      # Кликаем по "Показать номер"
+      click_to_phone = agent.click advert_page.link_with text: /Показать номер/
+
       # Собираем данные со страницы
       title         = advert_page.search('h1').text
       ad_id         = advert_page.uri.to_s.split('_').last
       item_category = advert_page.search('.item-params').text.split(': ').last
       price         = advert_page.search('.p_i_price').text.scan(/\d/).join
+      phone         = click_to_phone.link_with(href: /tel:/).href.sub('tel:', '').sub(/^8/, '+7')
+      owner_name    = advert_page.search('.person-name').text
+      desc          = advert_page.search('.description-preview-wrapper').text
+      posted_ad     = advert_page.search('.item-add-date').text
 
       # Сохраняем данные в базу
       Advert.create do |advert|
@@ -37,6 +52,7 @@ class Avito < ActiveRecord::Base
         advert.ad_id       = ad_id
         advert.category_id = category.id
         advert.price       = price
+        advert.phone       = phone
       end
       # sleep 1
     end

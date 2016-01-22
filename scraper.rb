@@ -16,15 +16,20 @@ ActiveRecord::Base.logger = Logger.new(STDERR)
 # Соединяемся с БД
 ActiveRecord::Base.establish_connection(dbconfig['development'])
 
+USER_AGENTS = { ff_android: 'Mozilla/5.0 (Android 5.1; Mobile; rv:41.0) Gecko/41.0 Firefox/41.0' }
+
 # Получаем страницу с объявлениями (и пагинацией)
-agent = Mechanize.new
-page  = agent.get('https://www.avito.ru/sankt-peterburg/gotoviy_biznes')
+agent = Mechanize.new do |agent|
+  agent.user_agent = USER_AGENTS[:ff_android]
+end
+
+page = agent.get('https://m.avito.ru/sankt-peterburg/gotoviy_biznes')
 
 # Сами объявления
 adverts = Avito.advert_links(page)
 
 # Первые 7 объявлений, для тестирования
-# adverts = adverts[0..7]
+adverts = adverts[0..7]
 
 # Собираем данные
 Avito.get_info(adverts)
