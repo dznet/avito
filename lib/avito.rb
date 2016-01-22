@@ -9,7 +9,7 @@ class Avito < ActiveRecord::Base
     links = page.links_with(href: /gotoviy_biznes/)
     # Удаляем первые 14 ссылок,
     # поскольку это ссылки на группы объявлений, сортировку и галерею
-    links.slice!(0..13)
+    links.slice!(0..1)
 
     links = links.reject do |link|
       link.node.attr('href').include?('?p=')
@@ -25,7 +25,7 @@ class Avito < ActiveRecord::Base
 
     adverts.each_with_index do |link, _index|
       # Убираем повторные ссылки с изображений к объявлениям
-      next if _index.odd?
+      # next if _index.odd?
 
       # Переходим на страницу конкретного объявления
       advert_page = link.click
@@ -48,16 +48,16 @@ class Avito < ActiveRecord::Base
       owner_name    = advert_page.search('.person-name').text
       desc          = advert_page.search('.description-preview-wrapper').text
       posted_ad     = advert_page.search('.item-add-date').text
-
+      # fail posted_ad.inspect
 
       # Сохраняем данные в базу
       Advert.create do |advert|
         # Сравниваем категорию объявления. Если в базе нет, то создаём
-        category = Category.find_or_create_by(title: item_category)
+        # category = Category.find_or_create_by(title: item_category)
 
         advert.title       = title
         advert.ad_id       = ad_id
-        advert.category_id = category.id
+        # advert.category_id = category.id
         advert.price      = price
         advert.phone      = phone
         advert.owner_name = owner_name
