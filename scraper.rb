@@ -25,14 +25,18 @@ end
 
 page = agent.get('https://m.avito.ru/sankt-peterburg/gotoviy_biznes')
 
+adverts = []
+
 # Сами объявления
-# loop do
-  adverts = Avito.advert_links(page)
-  fail adverts.inspect
-# end
+3.times do
+  adverts     = Avito.advert_links(page)
+  next_page   = page.search('.page-next').children
+  second_page = agent.click(page.link_with text: /Следующие/)
+  page        = second_page
+end
 
 # Первые 7 объявлений, для тестирования
-adverts = adverts[0..7]
+# adverts = adverts[0..7]
 
 # Собираем данные
 Avito.get_info(adverts)

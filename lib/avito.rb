@@ -35,8 +35,11 @@ class Avito < ActiveRecord::Base
 
       # Собираем данные со страницы
       # Изобаржение
-      image         = advert_page.search('.photo-self').attr('src').value[2..-1]
-      image_name    = advert_page.search('.photo-self').attr('src').value.split('/').last
+      unless advert_page.search('.photo-self').empty?
+        image         = advert_page.search('.photo-self').attr('src').value[2..-1]
+        image_name    = advert_page.search('.photo-self').attr('src').value.split('/').last
+        agent.get('http://' + image).save('public/images/' + image_name)
+      end
       title         = advert_page.search('header').text
       ad_id         = advert_page.uri.to_s.split('_').last
       item_category = advert_page.search('.item-params').text.split(': ').last
@@ -46,8 +49,6 @@ class Avito < ActiveRecord::Base
       desc          = advert_page.search('.description-preview-wrapper').text
       posted_ad     = advert_page.search('.item-add-date').text
 
-      # fail image.inspect
-      agent.get('http://' + image).save('public/images/' + image_name)
 
       # Сохраняем данные в базу
       Advert.create do |advert|
