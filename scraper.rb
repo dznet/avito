@@ -26,10 +26,5 @@ adverts = Avito.advert_links(page)
 # Первые 7 объявлений, для тестирования
 # adverts = adverts[0..7]
 
-# Удаляем лишние ссылки (в данном случае это пагинация)
-adverts = adverts.reject do |link|
-  link.node.attr('href').include?('?p=')
-end
-
 # Собираем данные
 Avito.get_info(adverts)

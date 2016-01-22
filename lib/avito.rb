@@ -14,8 +14,9 @@ class Avito < ActiveRecord::Base
   end
 
   def self.get_info(adverts)
-    adverts.each_with_index do |link, index|
-      # Todo: Убрать ссылки с картинок
+    adverts.each_with_index do |link, _index|
+
+      next if _index.odd?
 
       # Переходим на страницу конкретного объявления
       advert_page = link.click
