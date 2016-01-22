@@ -9,7 +9,7 @@ class CreateAdverts < ActiveRecord::Migration
       t.string    :phone
       t.string    :metro
       t.text      :desc
-      t.string    :image
+      t.string    :image_name
       t.integer   :status, default: 1
       t.string    :source_link
       t.timestamp :posted_ad

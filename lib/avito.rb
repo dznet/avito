@@ -34,6 +34,10 @@ class Avito < ActiveRecord::Base
       click_to_phone = agent.click advert_page.link_with text: /Показать номер/
 
       # Собираем данные со страницы
+      # Изобаржение
+      image      = advert_page.search('.photo-self').attr('src')
+      image_name = advert_page.search('.photo-self').attr('src').value.split('/').last
+
       title         = advert_page.search('header').text
       ad_id         = advert_page.uri.to_s.split('_').last
       item_category = advert_page.search('.item-params').text.split(': ').last
@@ -43,10 +47,9 @@ class Avito < ActiveRecord::Base
       desc          = advert_page.search('.description-preview-wrapper').text
       posted_ad     = advert_page.search('.item-add-date').text
 
-      image = advert_page.search('.photo-self').attr('src')
 
 
-      agent.get(image.attributes["src"]).save "public/images.jpg"
+      agent.get(image.attributes["src"]).save "public/images/" + image_name.to_s
 
       # Сохраняем данные в базу
       Advert.create do |advert|
@@ -56,12 +59,12 @@ class Avito < ActiveRecord::Base
         advert.title       = title
         advert.ad_id       = ad_id
         advert.category_id = category.id
-        advert.price       = price
-        advert.phone       = phone
-        advert.owner_name  = owner_name
-        advert.desc        = desc
-        advert.posted_ad   = posted_ad
-        advert.image       = advert_page.search('.photo-self').attr('src').value.split('/').last
+        advert.price      = price
+        advert.phone      = phone
+        advert.owner_name = owner_name
+        advert.desc       = desc
+        advert.posted_ad  = posted_ad
+        advert.image_name = image_name
 
       end
       # sleep 1
