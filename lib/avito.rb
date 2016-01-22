@@ -16,6 +16,7 @@ class Avito < ActiveRecord::Base
   def self.get_info(adverts)
     adverts.each_with_index do |link, _index|
 
+      # Убираем повторные ссылки с изображений к объявлениям
       next if _index.odd?
 
       # Переходим на страницу конкретного объявления
