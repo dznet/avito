@@ -21,9 +21,10 @@ USER_AGENTS = { ff_android: 'Mozilla/5.0 (Android 5.1; Mobile; rv:41.0) Gecko/41
 # Получаем страницу с объявлениями (и пагинацией)
 agent = Mechanize.new do |agent|
   agent.user_agent = USER_AGENTS[:ff_android]
+  # agent.set_proxy("178.19.247.73", 8080)
 end
 
-page = agent.get('https://m.avito.ru/sankt-peterburg/gotoviy_biznes')
+page = agent.get('https://m.avito.ru/sankt-peterburg/gotoviy_biznes?p=1')
 
 adverts = []
 
